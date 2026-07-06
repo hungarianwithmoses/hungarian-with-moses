@@ -497,6 +497,297 @@
 
   .hidden { display: none !important; }
 
+  /* ---------- landing page ---------- */
+
+  #landing {
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .lp-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 48px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .lp-logo {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  .lp-nav-actions { display: flex; gap: 14px; align-items: center; }
+
+  .lp-login-link {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .lp-login-link:hover { color: var(--text); }
+
+  .lp-nav .btn { width: auto; padding: 10px 18px; }
+
+  .lp-section {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 80px 48px;
+  }
+
+  @media (max-width: 700px) {
+    .lp-nav { padding: 18px 20px; }
+    .lp-section { padding: 56px 20px; }
+  }
+
+  .lp-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  @media (max-width: 800px) {
+    .lp-hero { grid-template-columns: 1fr; }
+  }
+
+  .lp-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 16px;
+  }
+
+  .lp-hero h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 44px;
+    line-height: 1.15;
+    margin: 0 0 20px;
+  }
+
+  @media (max-width: 700px) {
+    .lp-hero h1 { font-size: 32px; }
+  }
+
+  .lp-hero p {
+    color: var(--text-dim);
+    font-size: 16px;
+    line-height: 1.7;
+    margin: 0 0 28px;
+    max-width: 460px;
+  }
+
+  .lp-hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .lp-hero-actions .btn { width: auto; padding: 14px 24px; }
+
+  .lp-video-frame {
+    aspect-ratio: 16/9;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: var(--bg-raised);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .lp-video-frame iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .lp-video-placeholder {
+    text-align: center;
+    color: var(--text-dim);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    padding: 20px;
+  }
+
+  .lp-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 40px 0;
+  }
+
+  @media (max-width: 700px) {
+    .lp-stats { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .lp-stat { text-align: center; }
+
+  .lp-stat-num {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 30px;
+    color: var(--accent);
+  }
+
+  .lp-stat-label {
+    font-size: 12px;
+    color: var(--text-dim);
+    font-family: 'IBM Plex Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-top: 4px;
+  }
+
+  .lp-h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 30px;
+    margin: 0 0 12px;
+  }
+
+  .lp-sub {
+    color: var(--text-dim);
+    font-size: 15px;
+    line-height: 1.7;
+    max-width: 560px;
+    margin: 0 0 40px;
+  }
+
+  .lp-modules-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  @media (max-width: 700px) {
+    .lp-modules-grid { grid-template-columns: 1fr; }
+  }
+
+  .lp-module-card {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 18px 20px;
+    background: var(--bg-raised);
+  }
+
+  .lp-module-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    margin: 0 0 6px;
+  }
+
+  .lp-module-name {
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .lp-testimonials {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 800px) {
+    .lp-testimonials { grid-template-columns: 1fr; }
+  }
+
+  .lp-testimonial {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 22px;
+    background: var(--bg-raised);
+  }
+
+  .lp-testimonial p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text);
+    margin: 0 0 14px;
+  }
+
+  .lp-testimonial-name {
+    font-size: 12px;
+    color: var(--text-dim);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .lp-bio {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  @media (max-width: 700px) {
+    .lp-bio { grid-template-columns: 1fr; }
+  }
+
+  .lp-bio-photo {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-size: 48px;
+    color: var(--accent);
+  }
+
+  .lp-bio-text p {
+    color: var(--text-dim);
+    font-size: 15px;
+    line-height: 1.7;
+    margin: 0 0 14px;
+  }
+
+  .lp-bio-links {
+    display: flex;
+    gap: 16px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+
+  .lp-bio-links a {
+    font-size: 13px;
+    color: var(--accent);
+    text-decoration: none;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .lp-bio-links a:hover { text-decoration: underline; }
+
+  .lp-final-cta {
+    text-align: center;
+    border: 1px solid var(--accent-dim);
+    border-radius: 8px;
+    padding: 56px 32px;
+    background: var(--bg-raised);
+  }
+
+  .lp-final-cta h2 { margin-bottom: 12px; }
+
+  .lp-final-cta .btn {
+    width: auto;
+    padding: 16px 32px;
+    margin: 0 auto;
+    font-size: 15px;
+  }
+
+  .lp-footer {
+    text-align: center;
+    padding: 32px;
+    color: var(--text-dim);
+    font-size: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
   .spinner-wrap {
     height: 100vh;
     display: flex;
@@ -510,6 +801,117 @@
 </style>
 </head>
 <body>
+
+<!-- LANDING PAGE -->
+<div id="landing" class="hidden">
+  <nav class="lp-nav">
+    <div class="lp-logo">Hungarian With Moses</div>
+    <div class="lp-nav-actions">
+      <button class="lp-login-link" id="lp-login-btn">Log in</button>
+      <button class="btn primary" id="lp-signup-nav-btn">Start learning</button>
+    </div>
+  </nav>
+
+  <section class="lp-section lp-hero">
+    <div>
+      <p class="lp-eyebrow">Video Course</p>
+      <h1>Speak real Hungarian — without moving to Budapest.</h1>
+      <p>46 structured video lessons taking you from the alphabet to full sentences, verb conjugation, and real conversation — built by a native speaker who's taught thousands of lessons and helped students pass the Hungarian citizenship interview.</p>
+      <div class="lp-hero-actions">
+        <button class="btn primary" id="lp-hero-signup-btn">Start learning — €129 lifetime</button>
+        <button class="btn" id="lp-hero-login-btn">I already have an account</button>
+      </div>
+    </div>
+    <div class="lp-video-frame" id="lp-video-frame">
+      <div class="lp-video-placeholder">Intro video coming soon<br>— here's a sample lesson for now:</div>
+    </div>
+  </section>
+
+  <section class="lp-section" style="padding-top:0;">
+    <div class="lp-stats">
+      <div class="lp-stat"><div class="lp-stat-num">46</div><div class="lp-stat-label">Video Lessons</div></div>
+      <div class="lp-stat"><div class="lp-stat-num">8</div><div class="lp-stat-label">Modules</div></div>
+      <div class="lp-stat"><div class="lp-stat-num">1000s</div><div class="lp-stat-label">Lessons Taught</div></div>
+      <div class="lp-stat"><div class="lp-stat-num">Native</div><div class="lp-stat-label">Hungarian Speaker</div></div>
+    </div>
+  </section>
+
+  <section class="lp-section">
+    <p class="lp-eyebrow">What's Inside</p>
+    <h2 class="lp-h2">A complete path from zero to real conversation</h2>
+    <p class="lp-sub">Every module builds on the last — starting with the alphabet and pronunciation, through grammar and cases, up to using the future and past tense with confidence.</p>
+    <div class="lp-modules-grid" id="lp-modules-grid"></div>
+  </section>
+
+  <section class="lp-section">
+    <p class="lp-eyebrow">What Students Say</p>
+    <h2 class="lp-h2">Real feedback from real students</h2>
+    <div class="lp-testimonials">
+      <div class="lp-testimonial">
+        <p>"Mózes is very patient and his teaching approach is engaging — I could pronounce words correctly after just two lessons."</p>
+        <div class="lp-testimonial-name">— Karah</div>
+      </div>
+      <div class="lp-testimonial">
+        <p>"I've tried on and off to learn Hungarian for years — now I'm making real progress thanks to his structured method."</p>
+        <div class="lp-testimonial-name">— Dane</div>
+      </div>
+      <div class="lp-testimonial">
+        <p>"Clear ability to teach, plus a real understanding of how a student learns best. Encouraging every step of the way."</p>
+        <div class="lp-testimonial-name">— Mark</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-section">
+    <p class="lp-eyebrow">Your Teacher</p>
+    <h2 class="lp-h2">Hi, I'm Moses</h2>
+    <div class="lp-bio">
+      <div class="lp-bio-photo"><img src="moses-photo.png" alt="Moses" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>
+      <div class="lp-bio-text">
+        <p>I'm a native Hungarian speaker, a professional tutor, and a polyglot — I speak Hungarian, English, Spanish, Italian, Romanian, and Turkish. I've spent the last several years teaching Hungarian to thousands of students online, from complete beginners to people preparing for their Hungarian citizenship interview.</p>
+        <p>Through those lessons I built my own method for getting people speaking real Hungarian fast, without drowning in grammar tables first. This course is that method, distilled into 46 videos you can work through at your own pace.</p>
+        <p>I also write books on learning Hungarian and preparing for the citizenship process, and help students directly through one-on-one tutoring and mock citizenship interviews.</p>
+        <div class="lp-bio-links">
+          <a href="https://www.instagram.com/hungarianwithmoses" target="_blank">Instagram →</a>
+          <a href="https://preply.com/en/tutor/3679323" target="_blank">Book a 1-on-1 lesson →</a>
+          <a href="https://hungariannaturalization.com" target="_blank">Citizenship prep →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-section">
+    <p class="lp-eyebrow">Pricing</p>
+    <h2 class="lp-h2">Choose how you'd like to get access</h2>
+    <p class="lp-sub">Create a free account first, then pick lifetime or monthly on the next screen.</p>
+    <div class="pricing-cards">
+      <div class="price-card featured">
+        <p class="price-tag">Lifetime</p>
+        <p class="price-amount">€129</p>
+        <p class="price-period">one-time payment</p>
+        <p class="price-desc">Pay once, keep access to everything forever — including future lessons.</p>
+        <button class="btn primary lp-plan-btn" data-plan="signup">Get lifetime access</button>
+      </div>
+      <div class="price-card">
+        <p class="price-tag">Monthly</p>
+        <p class="price-amount">€13.99</p>
+        <p class="price-period">per month</p>
+        <p class="price-desc">Cancel anytime. Great if you just want to try the course out first.</p>
+        <button class="btn lp-plan-btn" data-plan="signup">Start monthly plan</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-section">
+    <div class="lp-final-cta">
+      <h2 class="lp-h2">Ready to actually speak Hungarian?</h2>
+      <p class="lp-sub" style="margin-left:auto;margin-right:auto;">46 lessons. One native teacher. Learn at your own pace, forever.</p>
+      <button class="btn primary" id="lp-final-signup-btn">Start learning today</button>
+    </div>
+  </section>
+
+  <footer class="lp-footer">Hungarian With Moses — hungarianwithmoses.com</footer>
+</div>
 
 <!-- LOADING -->
 <div id="loading" class="spinner-wrap">Loading…</div>
@@ -538,6 +940,7 @@
       <span id="auth-switch-text">Don't have an account?</span>
       <button id="auth-switch-btn">Sign up</button>
     </p>
+    <p class="gate-switch"><button id="auth-back-btn">&larr; Back to home</button></p>
   </div>
 </div>
 
@@ -551,7 +954,7 @@
     <div class="pricing-cards">
       <div class="price-card featured">
         <p class="price-tag">Lifetime</p>
-        <p class="price-amount">$129</p>
+        <p class="price-amount">€129</p>
         <p class="price-period">one-time payment</p>
         <p class="price-desc">Pay once, keep access to everything forever — including future lessons.</p>
         <a class="btn primary" id="lifetime-link" href="#" target="_blank">Get lifetime access</a>
@@ -708,21 +1111,48 @@ let isSignupMode = false;
 const $ = (id) => document.getElementById(id);
 
 function showOnly(id) {
-  ["loading", "auth-gate", "paywall-gate", "app"].forEach(x => {
+  ["landing", "loading", "auth-gate", "paywall-gate", "app"].forEach(x => {
     $(x).classList.toggle("hidden", x !== id);
   });
 }
 
 /* ---------- boot ---------- */
 async function boot() {
+  renderLandingModules();
+  $("lp-video-frame").innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/VlokyWSoS8o?modestbranding=1&rel=0" allow="accelerated-video; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+
   const { data: { session } } = await sb.auth.getSession();
   if (!session) {
-    showOnly("auth-gate");
+    showOnly("landing");
     return;
   }
   currentUser = session.user;
   await checkAccessAndRoute();
 }
+
+function renderLandingModules() {
+  const grid = $("lp-modules-grid");
+  grid.innerHTML = COURSE.map((mod, i) => `
+    <div class="lp-module-card">
+      <p class="lp-module-num">Module ${i + 1} · ${mod.lessons.length} lessons</p>
+      <p class="lp-module-name">${mod.module}</p>
+    </div>
+  `).join('');
+}
+
+function goToAuth(signup) {
+  showOnly("auth-gate");
+  setAuthMode(signup);
+}
+
+$("lp-login-btn").addEventListener("click", () => goToAuth(false));
+$("lp-signup-nav-btn").addEventListener("click", () => goToAuth(true));
+$("lp-hero-signup-btn").addEventListener("click", () => goToAuth(true));
+$("lp-hero-login-btn").addEventListener("click", () => goToAuth(false));
+$("lp-final-signup-btn").addEventListener("click", () => goToAuth(true));
+document.querySelectorAll(".lp-plan-btn").forEach(btn => {
+  btn.addEventListener("click", () => goToAuth(true));
+});
 
 sb.auth.onAuthStateChange((event, session) => {
   if (event === "SIGNED_IN" && session) {
@@ -730,7 +1160,7 @@ sb.auth.onAuthStateChange((event, session) => {
     checkAccessAndRoute();
   } else if (event === "SIGNED_OUT") {
     currentUser = null;
-    showOnly("auth-gate");
+    showOnly("landing");
   }
 });
 
@@ -770,6 +1200,7 @@ function setAuthMode(signup) {
 }
 
 $("auth-switch-btn").addEventListener("click", () => setAuthMode(!isSignupMode));
+$("auth-back-btn").addEventListener("click", () => showOnly("landing"));
 
 $("auth-submit").addEventListener("click", async () => {
   const email = $("auth-email").value.trim();

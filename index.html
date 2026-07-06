@@ -788,9 +788,11 @@ $("auth-submit").addEventListener("click", async () => {
     if (isSignupMode) {
       const { error } = await sb.auth.signUp({ email, password });
       if (error) throw error;
+      setAuthMode(false);
       errEl.textContent = "Check your email to confirm your account, then log in.";
       errEl.classList.remove("hidden");
-      setAuthMode(false);
+      errEl.classList.remove("gate-error");
+      errEl.classList.add("gate-note");
     } else {
       const { error } = await sb.auth.signInWithPassword({ email, password });
       if (error) throw error;
@@ -798,6 +800,8 @@ $("auth-submit").addEventListener("click", async () => {
   } catch (e) {
     errEl.textContent = e.message || "Something went wrong.";
     errEl.classList.remove("hidden");
+    errEl.classList.remove("gate-note");
+    errEl.classList.add("gate-error");
   } finally {
     $("auth-submit").disabled = false;
   }

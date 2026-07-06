@@ -16,15 +16,15 @@
      ============================================================ */
 
   :root{
-    --bg: #14181c;
-    --bg-raised: #1b2126;
-    --line: #2a3238;
-    --text: #f2eee6;
-    --text-dim: #9aa4ab;
-    --accent: #e8a33d;
-    --accent-dim: #6b5530;
-    --teal: #3f6b63;
-    --danger: #c0564a;
+    --bg: #97c47c;
+    --bg-raised: #86b96a;
+    --line: #6fa055;
+    --text: #ffffff;
+    --text-dim: #eaf5e2;
+    --accent: #ffffff;
+    --accent-dim: #cfe8bd;
+    --teal: #33502a;
+    --danger: #7a2a20;
     --radius: 3px;
   }
 
@@ -40,7 +40,7 @@
     overflow: hidden;
   }
 
-  ::selection { background: var(--accent-dim); color: var(--text); }
+  ::selection { background: var(--accent-dim); color: #2f4726; }
   a { color: inherit; }
   button { font-family: inherit; }
 
@@ -139,10 +139,10 @@
   .btn.primary {
     background: var(--accent);
     border-color: var(--accent);
-    color: #1a1305;
+    color: #33502a;
     font-weight: 600;
   }
-  .btn.primary:hover { background: #f0af52; }
+  .btn.primary:hover { background: #eaf5e2; }
 
   .gate-switch {
     text-align: center;
@@ -161,9 +161,9 @@
   }
 
   .gate-error {
-    background: rgba(192,86,74,0.12);
+    background: rgba(0,0,0,0.15);
     border: 1px solid var(--danger);
-    color: #e8b3ac;
+    color: #ffe0da;
     font-size: 13px;
     padding: 10px 12px;
     border-radius: var(--radius);
@@ -171,9 +171,9 @@
   }
 
   .gate-note {
-    background: rgba(232,163,61,0.08);
+    background: rgba(0,0,0,0.12);
     border: 1px solid var(--accent-dim);
-    color: var(--text-dim);
+    color: var(--text);
     font-size: 13px;
     padding: 10px 12px;
     border-radius: var(--radius);
@@ -373,7 +373,7 @@
   .lesson:hover { background: rgba(255,255,255,0.04); color: var(--text); }
 
   .lesson.active {
-    background: rgba(232,163,61,0.1);
+    background: rgba(255,255,255,0.15);
     color: var(--text);
   }
 
@@ -805,7 +805,7 @@
 <!-- LANDING PAGE -->
 <div id="landing" class="hidden">
   <nav class="lp-nav">
-    <div class="lp-logo">Hungarian With Moses</div>
+    <div class="lp-logo"><img src="logo-white.png" alt="Hungarian With Moses" style="height:34px;width:auto;display:block;"></div>
     <div class="lp-nav-actions">
       <button class="lp-login-link" id="lp-login-btn">Log in</button>
       <button class="btn primary" id="lp-signup-nav-btn">Start learning</button>

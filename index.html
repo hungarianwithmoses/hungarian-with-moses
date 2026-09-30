@@ -1167,6 +1167,8 @@ sb.auth.onAuthStateChange((event, session) => {
 
 async function checkAccessAndRoute() {
   showOnly("loading");
+    const emailEl = document.getElementById("paywall-email");
+  if (emailEl) emailEl.textContent = `Logged in as ${currentUser.email}`;
   const { data, error } = await sb
     .from("access")
     .select("plan")

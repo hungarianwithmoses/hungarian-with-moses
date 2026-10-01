@@ -303,9 +303,12 @@
     align-items: center;
     gap: 6px;
     position: relative;
+    flex-wrap: wrap;
+    justify-content: flex-end;
   }
 
-  .app-header-nav button {
+  .app-header-nav button,
+  .app-header-nav a {
     background: none;
     border: none;
     color: var(--text-dim);
@@ -319,6 +322,7 @@
   }
 
   .app-header-nav button:hover,
+  .app-header-nav a:hover,
   .app-header-nav button.active { color: var(--text); background: rgba(255,255,255,0.08); }
 
   .settings-panel {
@@ -1287,6 +1291,7 @@
     <div class="app-header-logo"><img src="logo-white.png" alt="Hungarian With Moses"></div>
     <nav class="app-header-nav">
       <button id="nav-mycourses-btn">My Courses</button>
+      <a href="https://buy.stripe.com/cNifZg8t5cyF61dgm7fMA08" target="_blank" id="nav-1on1-btn" style="text-decoration:none;">1-on-1 Lessons</a>
       <button id="nav-settings-btn">Settings</button>
       <button id="nav-signout-btn">Sign out</button>
     </nav>
@@ -1388,6 +1393,13 @@
           <span class="now">€199</span>
         </div>
         <a class="btn primary" href="https://buy.stripe.com/28E7sK6kX0PX2P18TFfMA0j" target="_blank" id="preorder-link" style="text-decoration:none;">Pre-order now</a>
+      </div>
+
+      <div class="preorder-card" style="margin-top:16px;">
+        <p class="preorder-tag">1-on-1 Lessons</p>
+        <h3>Book a private lesson with Moses</h3>
+        <p>Get personalized, focused practice — great for speaking confidence, interview prep, or working through anything the course doesn't cover.</p>
+        <a class="btn primary" href="https://buy.stripe.com/cNifZg8t5cyF61dgm7fMA08" target="_blank" style="text-decoration:none;">Book a lesson</a>
       </div>
 
     </div>
@@ -1772,16 +1784,19 @@ async function loadSubscriptionStatus() {
           <p class="sub-status-detail">You have permanent access — nothing to manage here.</p>
         </div>`;
     } else if (data.plan === "monthly") {
+      const subscribedSince = formatDate(data.started_at);
       if (data.cancel_at_period_end) {
         contentEl.innerHTML = `
           <div class="sub-status-box">
             <p class="sub-status-plan">Monthly Subscription — Cancelling</p>
+            ${subscribedSince ? `<p class="sub-status-detail">Subscribed since ${subscribedSince}.</p>` : ''}
             <p class="sub-status-detail">Your access continues until ${formatDate(data.current_period_end)}, then it won't renew.</p>
           </div>`;
       } else {
         contentEl.innerHTML = `
           <div class="sub-status-box">
             <p class="sub-status-plan">Monthly Subscription</p>
+            ${subscribedSince ? `<p class="sub-status-detail">Subscribed since ${subscribedSince}.</p>` : ''}
             <p class="sub-status-detail">Renews on ${formatDate(data.current_period_end)}.</p>
           </div>
           <button class="btn" id="cancel-sub-btn">Cancel subscription</button>`;

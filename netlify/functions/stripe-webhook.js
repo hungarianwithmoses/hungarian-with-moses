@@ -8,6 +8,52 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const FROM_EMAIL = process.env.FROM_EMAIL || 'Hungarian With Moses <onboarding@resend.dev>';
+const SITE_URL = 'https://hungarianwithmoses.com';
+
+async function sendPaymentEmail(toEmail, plan) {
+  if (!RESEND_API_KEY || !toEmail) return;
+
+  const planLabel = plan === 'lifetime' ? 'Lifetime Access' : 'Monthly Subscription';
+
+  const html = `
+    <div style="font-family: Arial, sans-serif; max-width: 480px; margin: 0 auto; padding: 32px 24px; background: #97c47c; color: #ffffff;">
+      <h1 style="font-size: 22px; margin: 0 0 16px;">You're in! 🎉</h1>
+      <p style="font-size: 15px; line-height: 1.6;">
+        Thanks for getting <strong>${planLabel}</strong> to Learn Hungarian. Your course is unlocked and ready whenever you are.
+      </p>
+      <p style="margin: 28px 0;">
+        <a href="${SITE_URL}" style="background:#ffffff;color:#33502a;padding:12px 22px;border-radius:4px;text-decoration:none;font-weight:bold;display:inline-block;">
+          Start learning →
+        </a>
+      </p>
+      <p style="font-size: 13px; line-height: 1.6; color: #eaf5e2;">
+        If you have any questions, just reply to this email.<br>
+        — Moses
+      </p>
+    </div>
+  `;
+
+  try {
+    await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${RESEND_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        from: FROM_EMAIL,
+        to: toEmail,
+        subject: "You're in — Learn Hungarian is unlocked!",
+        html
+      })
+    });
+  } catch (err) {
+    console.error('Failed to send payment confirmation email:', err);
+  }
+}
+
 exports.handler = async (event) => {
   const sig = event.headers['stripe-signature'];
   let stripeEvent;
@@ -42,6 +88,9 @@ exports.handler = async (event) => {
         stripe_subscription_id: session.subscription || null,
         updated_at: new Date().toISOString()
       });
+
+      const email = session.customer_details?.email || session.customer_email;
+      await sendPaymentEmail(email, plan);
     }
 
     if (stripeEvent.type === 'customer.subscription.deleted') {

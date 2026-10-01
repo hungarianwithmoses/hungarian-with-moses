@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Learn Hungarian — Hungarian With Moses</title>
 <link rel="icon" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,7 +37,8 @@
     color: var(--text);
     font-family: 'Inter', sans-serif;
     height: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
   }
 
   ::selection { background: var(--accent-dim); color: #2f4726; }
@@ -54,6 +55,7 @@
     justify-content: center;
     padding: 24px;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .gate-card {
@@ -160,6 +162,22 @@
     padding: 0;
   }
 
+  .forgot-row {
+    text-align: right;
+    margin: -8px 0 16px;
+  }
+
+  .forgot-row button {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: 12px;
+    padding: 0;
+    text-decoration: underline;
+  }
+  .forgot-row button:hover { color: var(--accent); }
+
   .gate-error {
     background: rgba(0,0,0,0.15);
     border: 1px solid var(--danger);
@@ -252,17 +270,92 @@
   }
   .signout-row button:hover { color: var(--accent); }
 
+  /* ---------- app header (logged in + paid) ---------- */
+
+  .app-wrap {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .app-header {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px;
+    background: var(--bg-raised);
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+  }
+
+  .app-header-logo img {
+    height: 28px;
+    width: auto;
+    display: block;
+  }
+
+  .app-header-nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+  }
+
+  .app-header-nav button {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: var(--radius);
+  }
+
+  .app-header-nav button:hover,
+  .app-header-nav button.active { color: var(--text); background: rgba(255,255,255,0.08); }
+
+  .settings-panel {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 16px;
+    width: 240px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  }
+
+  .settings-panel p {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin: 0 0 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    word-break: break-all;
+  }
+
+  .settings-panel .btn { font-size: 13px; padding: 9px 14px; }
+
   /* ---------- app layout ---------- */
 
   .app {
     display: grid;
     grid-template-columns: 340px 1fr;
-    height: 100vh;
+    flex: 1;
+    min-height: 0;
   }
 
   @media (max-width: 860px) {
-    html, body { overflow-y: auto; }
-    .app { grid-template-columns: 1fr; height: auto; }
+    html, body { overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    .app-wrap { height: auto; overflow: visible; }
+    .app { grid-template-columns: 1fr; }
     .sidebar { order: 2; border-right: none; border-top: 1px solid var(--line); height: auto; }
     .lesson-list { max-height: 60vh; }
     .main { order: 1; height: auto; overflow-y: visible; }
@@ -273,36 +366,13 @@
     border-right: 1px solid var(--line);
     display: flex;
     flex-direction: column;
+    min-height: 0;
   }
 
   .sidebar-header {
-    padding: 28px 24px 20px;
+    padding: 20px 24px;
     border-bottom: 1px solid var(--line);
   }
-
-  .course-eyebrow {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin: 0 0 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .signout-link {
-    background: none;
-    border: none;
-    color: var(--text-dim);
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    cursor: pointer;
-  }
-  .signout-link:hover { color: var(--accent); }
 
   .course-title {
     font-family: 'Fraunces', serif;
@@ -335,7 +405,9 @@
 
   .lesson-list {
     flex: 1;
+    min-height: 0;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     padding: 8px 0 24px;
   }
 
@@ -414,15 +486,18 @@
     display: flex;
     flex-direction: column;
     min-width: 0;
-    height: 100vh;
+    min-height: 0;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .player-wrap {
     background: #000;
     position: relative;
     width: 100%;
+    max-width: 100%;
     aspect-ratio: 16/9;
+    overflow: hidden;
   }
 
   .player-wrap iframe {
@@ -475,9 +550,20 @@
   .nav-row {
     display: flex;
     justify-content: space-between;
+    gap: 12px;
     margin-top: 40px;
     padding-top: 24px;
     border-top: 1px solid var(--line);
+  }
+
+  @media (max-width: 480px) {
+    .nav-row { flex-direction: column; }
+    .nav-link {
+      text-align: center;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
   }
 
   .nav-link {
@@ -502,6 +588,7 @@
   #landing {
     height: 100vh;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .lp-nav {
@@ -595,6 +682,7 @@
     justify-content: center;
     overflow: hidden;
     position: relative;
+    max-width: 100%;
   }
 
   .lp-video-frame iframe {
@@ -739,6 +827,7 @@
     font-family: 'Fraunces', serif;
     font-size: 48px;
     color: var(--accent);
+    overflow: hidden;
   }
 
   .lp-bio-text p {
@@ -916,7 +1005,7 @@
 <!-- LOADING -->
 <div id="loading" class="spinner-wrap">Loading…</div>
 
-<!-- AUTH GATE (login / signup) -->
+<!-- AUTH GATE (login / signup / reset password) -->
 <div id="auth-gate" class="gate hidden">
   <div class="gate-card">
     <p class="gate-eyebrow">Video Course</p>
@@ -925,16 +1014,26 @@
 
     <div id="auth-error" class="gate-error hidden"></div>
 
-    <div class="field">
-      <label>Email</label>
-      <input type="email" id="auth-email" autocomplete="email" placeholder="you@example.com">
-    </div>
-    <div class="field">
-      <label>Password</label>
-      <input type="password" id="auth-password" autocomplete="current-password" placeholder="••••••••">
-    </div>
+    <form id="auth-form">
+      <div class="field">
+        <label>Email</label>
+        <input type="email" id="auth-email" autocomplete="email" placeholder="you@example.com" required>
+      </div>
+      <div class="field" id="auth-password-field">
+        <label>Password</label>
+        <input type="password" id="auth-password" autocomplete="current-password" placeholder="••••••••">
+      </div>
+      <div class="field hidden" id="auth-confirm-field">
+        <label>Confirm password</label>
+        <input type="password" id="auth-confirm-password" autocomplete="new-password" placeholder="••••••••">
+      </div>
 
-    <button class="btn primary" id="auth-submit">Log in</button>
+      <div class="forgot-row" id="forgot-row">
+        <button type="button" id="forgot-password-btn">Forgot password?</button>
+      </div>
+
+      <button class="btn primary" id="auth-submit" type="submit">Log in</button>
+    </form>
 
     <p class="gate-switch">
       <span id="auth-switch-text">Don't have an account?</span>
@@ -980,39 +1079,50 @@
 </div>
 
 <!-- MAIN APP (logged in + paid) -->
-<div id="app" class="app hidden">
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <p class="course-eyebrow">
-        <span>Video Course</span>
-        <button class="signout-link" id="app-signout">Sign out</button>
-      </p>
-      <h1 class="course-title" id="course-title">Learn Hungarian</h1>
-      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
-      <p class="progress-label" id="progress-label">0 of 0 lessons complete</p>
-    </div>
-    <nav class="lesson-list" id="lesson-list"></nav>
-  </aside>
+<div id="app-wrap" class="app-wrap hidden">
+  <header class="app-header">
+    <div class="app-header-logo"><img src="logo-white.png" alt="Hungarian With Moses"></div>
+    <nav class="app-header-nav">
+      <button id="nav-mycourses-btn" class="active">My Courses</button>
+      <button id="nav-settings-btn">Settings</button>
+      <button id="nav-signout-btn">Sign out</button>
+      <div class="settings-panel hidden" id="settings-panel">
+        <p id="settings-email"></p>
+        <button class="btn" id="settings-reset-btn">Send password reset email</button>
+      </div>
+    </nav>
+  </header>
 
-  <main class="main">
-    <div class="player-wrap">
-      <iframe id="player" src="" title="Lesson video"
-        allow="accelerated-video; encrypted-media; picture-in-picture"
-        allowfullscreen></iframe>
-    </div>
-    <div class="lesson-panel">
-      <p class="panel-eyebrow" id="panel-eyebrow">Module 1 · Lesson 1</p>
-      <h2 class="panel-title" id="panel-title">Lesson title</h2>
-      <p class="panel-desc" id="panel-desc">Lesson description goes here.</p>
-      <div class="panel-actions">
-        <button class="btn primary" id="complete-btn">Mark complete</button>
+  <div class="app" id="app">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1 class="course-title" id="course-title">Learn Hungarian</h1>
+        <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+        <p class="progress-label" id="progress-label">0 of 0 lessons complete</p>
       </div>
-      <div class="nav-row">
-        <button class="nav-link" id="prev-btn">&larr; Previous</button>
-        <button class="nav-link" id="next-btn">Next &rarr;</button>
+      <nav class="lesson-list" id="lesson-list"></nav>
+    </aside>
+
+    <main class="main">
+      <div class="player-wrap">
+        <iframe id="player" src="" title="Lesson video"
+          allow="accelerated-video; encrypted-media; picture-in-picture"
+          allowfullscreen></iframe>
       </div>
-    </div>
-  </main>
+      <div class="lesson-panel">
+        <p class="panel-eyebrow" id="panel-eyebrow">Module 1 · Lesson 1</p>
+        <h2 class="panel-title" id="panel-title">Lesson title</h2>
+        <p class="panel-desc" id="panel-desc">Lesson description goes here.</p>
+        <div class="panel-actions">
+          <button class="btn primary" id="complete-btn">Mark complete</button>
+        </div>
+        <div class="nav-row">
+          <button class="nav-link" id="prev-btn">&larr; Previous</button>
+          <button class="nav-link" id="next-btn">Next &rarr;</button>
+        </div>
+      </div>
+    </main>
+  </div>
 </div>
 
 <script>
@@ -1107,12 +1217,12 @@ COURSE.forEach((mod, mi) => {
 let current = 0;
 let completed = new Set();
 let currentUser = null;
-let isSignupMode = false;
+let authView = "login"; // "login" | "signup" | "reset"
 
 const $ = (id) => document.getElementById(id);
 
 function showOnly(id) {
-  ["landing", "loading", "auth-gate", "paywall-gate", "app"].forEach(x => {
+  ["landing", "loading", "auth-gate", "paywall-gate", "app-wrap"].forEach(x => {
     $(x).classList.toggle("hidden", x !== id);
   });
 }
@@ -1143,7 +1253,7 @@ function renderLandingModules() {
 
 function goToAuth(signup) {
   showOnly("auth-gate");
-  setAuthMode(signup);
+  setAuthMode(signup ? "signup" : "login");
 }
 
 $("lp-login-btn").addEventListener("click", () => goToAuth(false));
@@ -1167,8 +1277,11 @@ sb.auth.onAuthStateChange((event, session) => {
 
 async function checkAccessAndRoute() {
   showOnly("loading");
-    const emailEl = document.getElementById("paywall-email");
+  const emailEl = $("paywall-email");
   if (emailEl) emailEl.textContent = `Logged in as ${currentUser.email}`;
+  const settingsEmail = $("settings-email");
+  if (settingsEmail) settingsEmail.textContent = currentUser.email;
+
   const { data, error } = await sb
     .from("access")
     .select("plan")
@@ -1178,7 +1291,7 @@ async function checkAccessAndRoute() {
   const plan = data?.plan;
   if (plan === "lifetime" || plan === "monthly") {
     await loadProgress();
-    showOnly("app");
+    showOnly("app-wrap");
     renderLesson();
   } else {
     const uid = encodeURIComponent(currentUser.id);
@@ -1189,60 +1302,155 @@ async function checkAccessAndRoute() {
   }
 }
 
-/* ---------- auth form ---------- */
-function setAuthMode(signup) {
-  isSignupMode = signup;
-  $("auth-title").textContent = signup ? "Create your account" : "Welcome back";
-  $("auth-sub").textContent = signup
-    ? "Sign up to start (or resume) your Hungarian course."
-    : "Log in to continue your Hungarian course.";
-  $("auth-submit").textContent = signup ? "Sign up" : "Log in";
-  $("auth-switch-text").textContent = signup ? "Already have an account?" : "Don't have an account?";
-  $("auth-switch-btn").textContent = signup ? "Log in" : "Sign up";
-  $("auth-error").classList.add("hidden");
-}
-
-$("auth-switch-btn").addEventListener("click", () => setAuthMode(!isSignupMode));
-$("auth-back-btn").addEventListener("click", () => showOnly("landing"));
-
-$("auth-submit").addEventListener("click", async () => {
-  const email = $("auth-email").value.trim();
-  const password = $("auth-password").value;
+/* ---------- auth form (login / signup / reset) ---------- */
+function setAuthMode(mode) {
+  authView = mode;
   const errEl = $("auth-error");
   errEl.classList.add("hidden");
 
-  if (!email || !password) {
-    errEl.textContent = "Please enter both an email and password.";
+  if (mode === "signup") {
+    $("auth-title").textContent = "Create your account";
+    $("auth-sub").textContent = "Sign up to start (or resume) your Hungarian course.";
+    $("auth-submit").textContent = "Sign up";
+    $("auth-switch-text").textContent = "Already have an account?";
+    $("auth-switch-btn").textContent = "Log in";
+    $("auth-password-field").classList.remove("hidden");
+    $("auth-password").required = true;
+    $("auth-confirm-field").classList.remove("hidden");
+    $("auth-confirm-password").required = true;
+    $("forgot-row").classList.add("hidden");
+  } else if (mode === "reset") {
+    $("auth-title").textContent = "Reset your password";
+    $("auth-sub").textContent = "Enter your email and we'll send you a reset link.";
+    $("auth-submit").textContent = "Send reset link";
+    $("auth-switch-text").textContent = "Remembered it?";
+    $("auth-switch-btn").textContent = "Log in";
+    $("auth-password-field").classList.add("hidden");
+    $("auth-password").required = false;
+    $("auth-confirm-field").classList.add("hidden");
+    $("auth-confirm-password").required = false;
+    $("forgot-row").classList.add("hidden");
+  } else {
+    $("auth-title").textContent = "Welcome back";
+    $("auth-sub").textContent = "Log in to continue your Hungarian course.";
+    $("auth-submit").textContent = "Log in";
+    $("auth-switch-text").textContent = "Don't have an account?";
+    $("auth-switch-btn").textContent = "Sign up";
+    $("auth-password-field").classList.remove("hidden");
+    $("auth-password").required = true;
+    $("auth-confirm-field").classList.add("hidden");
+    $("auth-confirm-password").required = false;
+    $("forgot-row").classList.remove("hidden");
+  }
+}
+
+$("auth-switch-btn").addEventListener("click", () => setAuthMode(authView === "login" ? "signup" : "login"));
+$("auth-back-btn").addEventListener("click", () => showOnly("landing"));
+$("forgot-password-btn").addEventListener("click", () => setAuthMode("reset"));
+
+$("auth-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const email = $("auth-email").value.trim();
+  const password = $("auth-password").value;
+  const confirmPassword = $("auth-confirm-password").value;
+  const errEl = $("auth-error");
+  errEl.classList.add("hidden");
+
+  function showError(msg) {
+    errEl.textContent = msg;
     errEl.classList.remove("hidden");
+    errEl.classList.remove("gate-note");
+    errEl.classList.add("gate-error");
+  }
+
+  function showNote(msg) {
+    errEl.textContent = msg;
+    errEl.classList.remove("hidden");
+    errEl.classList.remove("gate-error");
+    errEl.classList.add("gate-note");
+  }
+
+  if (authView === "reset") {
+    if (!email) { showError("Please enter your email."); return; }
+    $("auth-submit").disabled = true;
+    try {
+      const { error } = await sb.auth.resetPasswordForEmail(email, {
+        redirectTo: window.location.origin
+      });
+      if (error) throw error;
+      showNote("If that email has an account, a reset link is on its way. Check your inbox.");
+    } catch (err) {
+      showError(err.message || "Something went wrong.");
+    } finally {
+      $("auth-submit").disabled = false;
+    }
+    return;
+  }
+
+  if (!email || !password) {
+    showError("Please enter both an email and password.");
+    return;
+  }
+
+  if (authView === "signup" && password !== confirmPassword) {
+    showError("Those passwords don't match — please re-enter them.");
     return;
   }
 
   $("auth-submit").disabled = true;
   try {
-    if (isSignupMode) {
+    if (authView === "signup") {
       const { error } = await sb.auth.signUp({ email, password });
       if (error) throw error;
-      setAuthMode(false);
-      errEl.textContent = "Check your email to confirm your account, then log in.";
-      errEl.classList.remove("hidden");
-      errEl.classList.remove("gate-error");
-      errEl.classList.add("gate-note");
+      setAuthMode("login");
+      showNote("Check your email to confirm your account, then log in.");
     } else {
       const { error } = await sb.auth.signInWithPassword({ email, password });
       if (error) throw error;
     }
-  } catch (e) {
-    errEl.textContent = e.message || "Something went wrong.";
-    errEl.classList.remove("hidden");
-    errEl.classList.remove("gate-note");
-    errEl.classList.add("gate-error");
+  } catch (err) {
+    showError(err.message || "Something went wrong.");
   } finally {
     $("auth-submit").disabled = false;
   }
 });
 
 $("paywall-signout").addEventListener("click", () => sb.auth.signOut());
-$("app-signout").addEventListener("click", () => sb.auth.signOut());
+$("nav-signout-btn").addEventListener("click", () => sb.auth.signOut());
+
+/* ---------- app header: My Courses / Settings ---------- */
+$("nav-mycourses-btn").addEventListener("click", () => {
+  $("settings-panel").classList.add("hidden");
+});
+
+$("nav-settings-btn").addEventListener("click", () => {
+  $("settings-panel").classList.toggle("hidden");
+});
+
+document.addEventListener("click", (e) => {
+  const panel = $("settings-panel");
+  const btn = $("nav-settings-btn");
+  if (!panel.classList.contains("hidden") && !panel.contains(e.target) && e.target !== btn) {
+    panel.classList.add("hidden");
+  }
+});
+
+$("settings-reset-btn").addEventListener("click", async () => {
+  const btn = $("settings-reset-btn");
+  btn.disabled = true;
+  const original = btn.textContent;
+  try {
+    const { error } = await sb.auth.resetPasswordForEmail(currentUser.email, {
+      redirectTo: window.location.origin
+    });
+    if (error) throw error;
+    btn.textContent = "Email sent!";
+  } catch (err) {
+    btn.textContent = "Something went wrong";
+  } finally {
+    setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 2500);
+  }
+});
 
 /* ---------- progress (Supabase-backed) ---------- */
 async function loadProgress() {
@@ -1324,7 +1532,11 @@ function renderLesson() {
   renderList();
 }
 
-function goTo(idx) { current = idx; renderLesson(); }
+function goTo(idx) {
+  current = idx;
+  renderLesson();
+  document.querySelector('.main').scrollTo({ top: 0, behavior: 'smooth' });
+}
 
 $('complete-btn').addEventListener('click', toggleComplete);
 $('prev-btn').addEventListener('click', () => { if (current > 0) goTo(current - 1); });

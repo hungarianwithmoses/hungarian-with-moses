@@ -40,7 +40,14 @@ exports.handler = async (event) => {
     .maybeSingle();
 
   if (accessError || !accessRow) {
-    return { statusCode: 404, body: JSON.stringify({ error: 'No access record found' }) };
+    return {
+      statusCode: 404,
+      body: JSON.stringify({
+        error: 'No access record found',
+        debug_resolved_user_id: userId,
+        debug_access_error: accessError ? accessError.message : null
+      })
+    };
   }
 
   if (action === 'status') {

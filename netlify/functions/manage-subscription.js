@@ -40,14 +40,7 @@ exports.handler = async (event) => {
     .maybeSingle();
 
   if (accessError || !accessRow) {
-    return {
-      statusCode: 404,
-      body: JSON.stringify({
-        error: 'No access record found',
-        debug_resolved_user_id: userId,
-        debug_access_error: accessError ? accessError.message : null
-      })
-    };
+    return { statusCode: 404, body: JSON.stringify({ error: 'No access record found' }) };
   }
 
   if (action === 'status') {
@@ -59,13 +52,18 @@ exports.handler = async (event) => {
     }
     try {
       const sub = await stripe.subscriptions.retrieve(accessRow.stripe_subscription_id);
+      const item = sub.items?.data?.[0];
+      const periodEnd = sub.current_period_end || item?.current_period_end || null;
+      const periodStart = sub.current_period_start || item?.current_period_start || null;
       return {
         statusCode: 200,
         body: JSON.stringify({
           plan: accessRow.plan,
           status: sub.status,
           cancel_at_period_end: sub.cancel_at_period_end,
-          current_period_end: sub.current_period_end
+          current_period_end: periodEnd,
+          current_period_start: periodStart,
+          started_at: sub.start_date
         })
       };
     } catch (err) {
@@ -81,11 +79,13 @@ exports.handler = async (event) => {
       const sub = await stripe.subscriptions.update(accessRow.stripe_subscription_id, {
         cancel_at_period_end: true
       });
+      const item = sub.items?.data?.[0];
+      const periodEnd = sub.current_period_end || item?.current_period_end || null;
       return {
         statusCode: 200,
         body: JSON.stringify({
           success: true,
-          current_period_end: sub.current_period_end
+          current_period_end: periodEnd
         })
       };
     } catch (err) {

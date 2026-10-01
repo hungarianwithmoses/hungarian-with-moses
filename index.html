@@ -333,15 +333,218 @@
     box-shadow: 0 8px 24px rgba(0,0,0,0.25);
   }
 
-  .settings-panel p {
-    font-size: 12px;
+  /* ---------- modal system (Settings / My Courses) ---------- */
+
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .modal-box {
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    width: 100%;
+    max-width: 680px;
+    max-height: 85vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--line);
+    flex-shrink: 0;
+  }
+
+  .modal-header h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 20px;
+    margin: 0;
+  }
+
+  .modal-close {
+    background: none;
+    border: none;
     color: var(--text-dim);
-    margin: 0 0 12px;
+    font-size: 20px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px;
+  }
+  .modal-close:hover { color: var(--text); }
+
+  .modal-body {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 24px;
+  }
+
+  .settings-layout {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 24px;
+  }
+
+  @media (max-width: 560px) {
+    .settings-layout { grid-template-columns: 1fr; }
+  }
+
+  .settings-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  @media (max-width: 560px) {
+    .settings-tabs { flex-direction: row; overflow-x: auto; gap: 8px; padding-bottom: 8px; }
+  }
+
+  .settings-tab {
+    background: none;
+    border: none;
+    text-align: left;
+    color: var(--text-dim);
+    font-size: 13px;
+    padding: 10px 12px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .settings-tab:hover { background: rgba(255,255,255,0.06); color: var(--text); }
+  .settings-tab.active { background: rgba(255,255,255,0.12); color: var(--text); font-weight: 600; }
+
+  .settings-pane { display: none; }
+  .settings-pane.active { display: block; }
+
+  .settings-field-label {
     font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin: 0 0 6px;
+  }
+
+  .settings-value {
+    font-size: 14px;
+    margin: 0 0 20px;
     word-break: break-all;
   }
 
-  .settings-panel .btn { font-size: 13px; padding: 9px 14px; }
+  .settings-pane .btn { width: auto; }
+
+  .sub-status-box {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .sub-status-plan {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 18px;
+    margin: 0 0 4px;
+  }
+
+  .sub-status-detail {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin: 0;
+  }
+
+  /* ---------- my courses modal ---------- */
+
+  .course-card-row {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 20px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .course-card-row h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 17px;
+    margin: 0 0 4px;
+  }
+
+  .course-card-row p {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin: 0;
+  }
+
+  .course-card-row .btn { width: auto; }
+
+  .preorder-card {
+    border: 1px solid var(--accent-dim);
+    border-radius: 6px;
+    padding: 20px;
+    background: rgba(255,255,255,0.05);
+  }
+
+  .preorder-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 8px;
+  }
+
+  .preorder-card h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 18px;
+    margin: 0 0 8px;
+  }
+
+  .preorder-card p {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.6;
+    margin: 0 0 14px;
+  }
+
+  .preorder-price {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .preorder-price .was {
+    text-decoration: line-through;
+    color: var(--text-dim);
+    font-size: 14px;
+  }
+
+  .preorder-price .now {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 22px;
+  }
+
+  .preorder-card .btn { width: auto; }
 
   /* ---------- app layout ---------- */
 
@@ -1083,13 +1286,9 @@
   <header class="app-header">
     <div class="app-header-logo"><img src="logo-white.png" alt="Hungarian With Moses"></div>
     <nav class="app-header-nav">
-      <button id="nav-mycourses-btn" class="active">My Courses</button>
+      <button id="nav-mycourses-btn">My Courses</button>
       <button id="nav-settings-btn">Settings</button>
       <button id="nav-signout-btn">Sign out</button>
-      <div class="settings-panel hidden" id="settings-panel">
-        <p id="settings-email"></p>
-        <button class="btn" id="settings-reset-btn">Send password reset email</button>
-      </div>
     </nav>
   </header>
 
@@ -1122,6 +1321,76 @@
         </div>
       </div>
     </main>
+  </div>
+</div>
+
+<!-- SETTINGS MODAL -->
+<div id="settings-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2>Settings</h2>
+      <button class="modal-close" id="settings-modal-close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="settings-layout">
+        <div class="settings-tabs">
+          <button class="settings-tab active" data-tab="profile">My Profile</button>
+          <button class="settings-tab" data-tab="subscription">Subscription</button>
+          <button class="settings-tab" data-tab="support">Support</button>
+        </div>
+        <div class="settings-content">
+
+          <div class="settings-pane active" id="settings-pane-profile">
+            <p class="settings-field-label">Email</p>
+            <p class="settings-value" id="settings-email"></p>
+            <button class="btn" id="settings-reset-btn">Send password reset email</button>
+          </div>
+
+          <div class="settings-pane" id="settings-pane-subscription">
+            <div id="sub-status-loading" class="settings-value">Loading…</div>
+            <div id="sub-status-content" class="hidden"></div>
+          </div>
+
+          <div class="settings-pane" id="settings-pane-support">
+            <p class="settings-value">Questions, issues, or anything else — reach out any time.</p>
+            <a class="btn primary" href="mailto:hungarianwithmoses@gmail.com" style="text-decoration:none;display:inline-flex;width:auto;">Email hungarianwithmoses@gmail.com</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MY COURSES MODAL -->
+<div id="courses-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2>My Courses</h2>
+      <button class="modal-close" id="courses-modal-close">&times;</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="course-card-row">
+        <div>
+          <h3>Learn Hungarian</h3>
+          <p id="courses-current-plan">Loading…</p>
+        </div>
+        <button class="btn primary" id="courses-continue-btn">Continue learning</button>
+      </div>
+
+      <div class="preorder-card">
+        <p class="preorder-tag">Pre-order · Releasing Nov 1, 2026</p>
+        <h3>Hungarian Citizenship Interview Prep</h3>
+        <p>A focused course to get you ready for the Hungarian citizenship interview — language, history, and culture questions, with practice drills.</p>
+        <div class="preorder-price">
+          <span class="was">€239</span>
+          <span class="now">€199</span>
+        </div>
+        <a class="btn primary" href="https://buy.stripe.com/28E7sK6kX0PX2P18TFfMA0j" target="_blank" id="preorder-link" style="text-decoration:none;">Pre-order now</a>
+      </div>
+
+    </div>
   </div>
 </div>
 
@@ -1418,22 +1687,38 @@ $("auth-form").addEventListener("submit", async (e) => {
 $("paywall-signout").addEventListener("click", () => sb.auth.signOut());
 $("nav-signout-btn").addEventListener("click", () => sb.auth.signOut());
 
-/* ---------- app header: My Courses / Settings ---------- */
-$("nav-mycourses-btn").addEventListener("click", () => {
-  $("settings-panel").classList.add("hidden");
-});
+/* ---------- app header: My Courses / Settings modals ---------- */
+function openModal(id) { $(id).classList.remove("hidden"); }
+function closeModal(id) { $(id).classList.add("hidden"); }
 
 $("nav-settings-btn").addEventListener("click", () => {
-  $("settings-panel").classList.toggle("hidden");
+  openModal("settings-modal");
+  switchSettingsTab("profile");
+});
+$("settings-modal-close").addEventListener("click", () => closeModal("settings-modal"));
+$("settings-modal").addEventListener("click", (e) => {
+  if (e.target.id === "settings-modal") closeModal("settings-modal");
 });
 
-document.addEventListener("click", (e) => {
-  const panel = $("settings-panel");
-  const btn = $("nav-settings-btn");
-  if (!panel.classList.contains("hidden") && !panel.contains(e.target) && e.target !== btn) {
-    panel.classList.add("hidden");
-  }
+$("nav-mycourses-btn").addEventListener("click", () => {
+  openModal("courses-modal");
+  loadCoursesModal();
 });
+$("courses-modal-close").addEventListener("click", () => closeModal("courses-modal"));
+$("courses-modal").addEventListener("click", (e) => {
+  if (e.target.id === "courses-modal") closeModal("courses-modal");
+});
+$("courses-continue-btn").addEventListener("click", () => closeModal("courses-modal"));
+
+document.querySelectorAll(".settings-tab").forEach(tab => {
+  tab.addEventListener("click", () => switchSettingsTab(tab.dataset.tab));
+});
+
+function switchSettingsTab(name) {
+  document.querySelectorAll(".settings-tab").forEach(t => t.classList.toggle("active", t.dataset.tab === name));
+  document.querySelectorAll(".settings-pane").forEach(p => p.classList.toggle("active", p.id === `settings-pane-${name}`));
+  if (name === "subscription") loadSubscriptionStatus();
+}
 
 $("settings-reset-btn").addEventListener("click", async () => {
   const btn = $("settings-reset-btn");
@@ -1451,6 +1736,97 @@ $("settings-reset-btn").addEventListener("click", async () => {
     setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 2500);
   }
 });
+
+/* ---------- subscription status (calls manage-subscription function) ---------- */
+async function callSubscriptionFn(action) {
+  const { data: { session } } = await sb.auth.getSession();
+  const res = await fetch("/.netlify/functions/manage-subscription", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${session.access_token}`
+    },
+    body: JSON.stringify({ action })
+  });
+  return res.json();
+}
+
+function formatDate(unixSeconds) {
+  if (!unixSeconds) return "";
+  return new Date(unixSeconds * 1000).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+async function loadSubscriptionStatus() {
+  const loadingEl = $("sub-status-loading");
+  const contentEl = $("sub-status-content");
+  loadingEl.classList.remove("hidden");
+  contentEl.classList.add("hidden");
+
+  try {
+    const data = await callSubscriptionFn("status");
+
+    if (data.plan === "lifetime") {
+      contentEl.innerHTML = `
+        <div class="sub-status-box">
+          <p class="sub-status-plan">Lifetime Access</p>
+          <p class="sub-status-detail">You have permanent access — nothing to manage here.</p>
+        </div>`;
+    } else if (data.plan === "monthly") {
+      if (data.cancel_at_period_end) {
+        contentEl.innerHTML = `
+          <div class="sub-status-box">
+            <p class="sub-status-plan">Monthly Subscription — Cancelling</p>
+            <p class="sub-status-detail">Your access continues until ${formatDate(data.current_period_end)}, then it won't renew.</p>
+          </div>`;
+      } else {
+        contentEl.innerHTML = `
+          <div class="sub-status-box">
+            <p class="sub-status-plan">Monthly Subscription</p>
+            <p class="sub-status-detail">Renews on ${formatDate(data.current_period_end)}.</p>
+          </div>
+          <button class="btn" id="cancel-sub-btn">Cancel subscription</button>`;
+        $("cancel-sub-btn").addEventListener("click", handleCancelSubscription);
+      }
+    } else {
+      contentEl.innerHTML = `<div class="sub-status-box"><p class="sub-status-detail">No active plan found.</p></div>`;
+    }
+  } catch (err) {
+    contentEl.innerHTML = `<div class="sub-status-box"><p class="sub-status-detail">Couldn't load subscription details right now.</p></div>`;
+  } finally {
+    loadingEl.classList.add("hidden");
+    contentEl.classList.remove("hidden");
+  }
+}
+
+async function handleCancelSubscription() {
+  const btn = $("cancel-sub-btn");
+  if (!confirm("Cancel your monthly subscription? You'll keep access until the end of your current billing period.")) return;
+  btn.disabled = true;
+  btn.textContent = "Cancelling…";
+  try {
+    const data = await callSubscriptionFn("cancel");
+    if (data.error) throw new Error(data.error);
+    loadSubscriptionStatus();
+  } catch (err) {
+    btn.textContent = "Something went wrong";
+    btn.disabled = false;
+  }
+}
+
+/* ---------- My Courses modal content ---------- */
+async function loadCoursesModal() {
+  const planEl = $("courses-current-plan");
+  planEl.textContent = "Loading…";
+  try {
+    const { data } = await sb.from("access").select("plan").eq("user_id", currentUser.id).maybeSingle();
+    const plan = data?.plan;
+    planEl.textContent = plan === "lifetime" ? "Lifetime Access"
+      : plan === "monthly" ? "Monthly Subscription"
+      : "No active plan";
+  } catch {
+    planEl.textContent = "Learn Hungarian";
+  }
+}
 
 /* ---------- progress (Supabase-backed) ---------- */
 async function loadProgress() {
